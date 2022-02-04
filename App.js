@@ -13,7 +13,35 @@ import TrackListScreen from './src/screens/TrackListScreen';
 import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext'
 import { Provider as LocationProvider } from './src/context/LocationContext'
+import { Provider as TrackProvider } from './src/context/TrackContext'
 import { setNavigator } from './src/navigationRef';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
+
+const trackListFlow = createStackNavigator({
+  TrackList: TrackListScreen,
+  TrackDetail: TrackDetailScreen
+})
+trackListFlow.navigationOptions ={
+  title: "Tracks",
+  tabBarIcon: <MaterialCommunityIcons name="map-marker-path" size={30} />
+}
+
+const trackCreateFlow = createStackNavigator({
+  TrackCreate: TrackCreateScreen
+})
+trackCreateFlow.navigationOptions = {
+  title: 'Add Track',
+  tabBarIcon: <FontAwesome5 name="plus-square" size={30} />
+}
+
+const accountFlow = createStackNavigator({
+  Account: AccountScreen
+})
+accountFlow.navigationOptions = {
+  title: 'Account',
+  tabBarIcon: <MaterialCommunityIcons name="account-cog-outline" size={30} />
+}
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
@@ -22,12 +50,17 @@ const switchNavigator = createSwitchNavigator({
     Signin: SignInScreen
   }),
   mainFlow: createBottomTabNavigator({
-    trackListFlow: createStackNavigator({
-      TrackList: TrackListScreen,
-      TrackDetail: TrackDetailScreen
-    }),
-    TrackCreate: TrackCreateScreen,
-    Account: AccountScreen,
+    trackListFlow,
+    trackCreateFlow,
+    accountFlow,
+  },
+  {
+    tabBarOptions:{
+      style: {
+        height: 60,
+        paddingTop: 8
+      }
+    }
   })
 })
 
@@ -36,11 +69,13 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <App ref={(navigator) => { setNavigator(navigator) }} />
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <App ref={(navigator) => { setNavigator(navigator) }} />
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   )
 }
 
