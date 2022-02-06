@@ -4,8 +4,8 @@ React Native application to track and store a collection of user's locations as 
 
 To run:
 - Start Expo app on iOS or Android
-- Start track-server express API on port 3000 (link to repo here)
-- Tunnel traffic to port 3000 using ngrok
+- Start track-server express API on port 3000 (link to repo: https://github.com/cgorski28/track-server)
+- Tunnel traffic from port 3000 to public URL using ngrok
 - Update base URL in trackerApi.js file using ngrok generated URL
 
 Ideas for improvement:
