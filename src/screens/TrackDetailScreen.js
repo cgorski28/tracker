@@ -30,7 +30,8 @@ TrackDetailScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     map: {
-        height: 300
+        height: 300,
+        margin: 10
     }
 })
 

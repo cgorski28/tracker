@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import createDataContext from "./createDataContext";
 import trackerApi from '../api/tracker'
 import { navigate } from '../navigationRef'
+//import jwt from 'jsonwebtoken'
 
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -21,6 +22,8 @@ const authReducer = (state, action) => {
 const tryLocalSignin = (dispatch) => async () => {
     const token = await AsyncStorage.getItem('token')
     if (token) {
+        // const decoded = jwt.verify(token, 'secret_key')
+        // console.log('decoded token: ', decoded)
         dispatch({ type: 'signin', payload: token })
         navigate('TrackList')
     } else {
